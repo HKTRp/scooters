@@ -1,0 +1,178 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Админпанель</title>
+	<link rel='stylesheet' type="text/css" href=" {% static "frontend/fixed.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "frontend/content2.css" %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body link="#222222" vlink="#222222" alink="#222222">
+<div class="sidebar">
+    <a href="dashboard">
+	<div class="button">
+		<div class="name">Дашборд</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-приборная-панель-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+	<a href="alerts"><div class="button">
+		<div class="name">Тревоги</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-предупреждение-тормоза-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="map">
+	<div class="button">
+		<div class="name">Карта</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-карта-сокровищ-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="scooters">
+	<div class="button">
+		<div class="name">Самокаты</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-самокат-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="clients">
+	<div class="button">
+		<div class="name">Клиенты</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-мужчина-пользователь-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="orders">
+	<div class="button">
+		<div class="name">Заказы</div>
+		<div class="icon">
+			<img src={% static "frontend/icons/icons8-выставленный-счет-50.png" %} alt="">
+        </div>
+	</div>
+    </a>
+    <a href="review">
+	<div class="button">
+		<div class="name">Осмотр</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-детектив-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="billing">
+	<div class="button">
+		<div class="name">Биллинг</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-счет-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="rates">
+	<div class="button">
+		<div class="name">Тарифы</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-заказ-на-покупку-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="logs">
+	<div class="button">
+		<div class="name">Логи</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-история-заказов-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+</div>
+<div class="other">
+	<div class="header">
+		<div class="useravatar">
+			<img src="../icons/download.png" alt="">
+		</div>
+		<div class="username">
+			Administrator
+		</div>
+		<div class="logoutbutton">
+			ВЫЙТИ
+		</div>
+	</div>
+	<div class="content">
+		<div class="list">
+			<div class="filter">
+            <form id="filter" action="/scooters" method="get">
+				<div class="criterion" id="group">
+					<div class="name">
+						Группа:
+					</div>
+					<select form="filter" name="group">
+						<option value="all">Все</option>
+                        {% for group in groups %}
+                            <option value="{{ group.id }}">{{ group.name }}</option>
+                        {% endfor %}
+					</select>
+				</div>
+				<div class="criterion" id="status">
+					<div class="name">
+						Статус:
+					</div>
+					<select form="filter" name="status">
+						<option value="all">Любой</option>
+                        <option value="ON">Онлайн</option>
+                        <option value="UR">В ремонте</option>
+                        <option value="RT">Арендован</option>
+                        <option value="BK">Забронирован</option>
+					</select>
+				</div>
+				<div class="criterion" id="alert">
+					<div class="name">
+						Состояние:
+					</div>
+					<select form="filter" name="alert">
+						<option value="all">Любое</option>
+                        <option value="OK">В порядке</option>
+                        <option value="HJ">Попытка угона</option>
+                        <option value="LC">Потеря соединения</option>
+                        <option value="LA">Выход из зоны</option>
+                        <option value="LB">Низкий заряд</option>
+                        <option value="FP">Не прошла оплата</option>
+					</select>
+				</div>
+				<div class="findbutton">
+					<input type="submit" value="Найти">
+				</div>
+            </form>
+			</div>
+			<div class="titles">
+				<div class="title" id="name">Имя</div>
+				<div class="title" id="id">ID</div>
+				<div class="title" id="status">Статус</div>
+			</div>
+			<div class="table">
+                {% for scooter in scooters %}
+                <a href="scooters?id={{ scooter.id }}">
+				<div class="row {% cycle 'a1' 'a2' %}">
+					<div class="value" id="name">
+						{{ scooter.name }}
+					</div>
+					<div class="value" id="id">
+						{{ scooter.id }}
+					</div>
+					<div class="value" id="status">
+						{{ scooter.status }}
+					</div>
+				</div>
+                </a>
+                {% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

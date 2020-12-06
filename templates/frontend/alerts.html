@@ -1,0 +1,67 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+{% block settings %}
+	<title>Админпанель</title>
+	<link rel='stylesheet' type="text/css" href=" {% static "frontend/fixed.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "frontend/content2.css" %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<div class="content">
+		<div class="list">
+			<div class="filter">
+            <form id="filter" action="/alerts" method="get">
+				<div class="criterion" id="alert">
+					<div class="name">
+						Тип ошибки:
+					</div>
+					<select form="filter" name="alert">
+						<option value="all">Любой</option>
+                        <option value="HJ">Попытка угона</option>
+                        <option value="LC">Потеря соединения</option>
+                        <option value="LA">Выход из зоны</option>
+                        <option value="LB">Низкий заряд</option>
+                        <option value="FP">Не прошла оплата</option>
+					</select>
+				</div>
+				<div class="findbutton">
+					<input type="submit" value="Найти">
+				</div>
+            </form>
+			</div>
+			<div class="titles">
+				<div class="title" id="name">Название самоката</div>
+				<div class="title" id="id">ID</div>
+				<div class="title" id="status">Ошибка</div>
+			</div>
+			<div class="table">
+                {% for alert in alerts %}
+                <a href="scooters/{{ alert.id }}">
+				<div class="row {% cycle 'a1' 'a2' %}" id="r{{ alert.id }}">
+                    <style type="text/css">
+                        #r{{ alert.id }}:hover img
+                            {
+                                display: block;
+                                padding-top: 15px;
+                                float: right;
+                                padding-right: 25px;
+                            }
+                    </style>
+					<div class="value" id="name">
+						{{ alert.alert_owner.name }}
+					</div>
+					<div class="value" id="id">
+						{{ alert.id }}
+					</div>
+					<div class="value" id="status">
+						{{ alert.type }}
+					</div>
+				</div>
+                </a>
+                {% endfor %}
+				</div>
+			</div>
+		</div>
+    </div>
+{% endblock %}
+</body>

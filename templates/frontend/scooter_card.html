@@ -1,0 +1,123 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+
+{% block settings %}
+	<title>Админпанель</title>
+	<link rel='stylesheet' type="text/css" href=" {% static "frontend/fixed.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "frontend/content3.css" %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<div class="content">
+		<div class="title">
+			{{ scooter.scooter_name }}
+		</div>
+		<div class="window">
+
+			<div class="image">
+				<img src="../../static/{{ scooter.photo }}" alt="">
+			</div>
+			<div class="textdata">
+				<div class="description">
+					<div class="name">
+						Описание:
+					</div>
+					<div class="text">
+                        {{ scooter.description }}
+					</div>
+				</div>
+				<div class="description">
+					<div class="name">
+						Статус:
+					</div>
+					<div class="text">
+						{{ scooter.status }}
+					</div>
+				</div>
+				<div class="description">
+					<div class="name">
+						Критичесие оповещения:
+					</div>
+					<div class="text">
+						{{ scooter.alert_status }}
+					</div>
+				</div>
+				<div class="description">
+					<div class="name">
+						Координаты:
+					</div>
+					<div class="text">
+						{{ scooter.latitude }} {{ scooter.longitude }}
+					</div>
+				</div>
+                <div class="description">
+                    <div class="name">Скоростное ограничение:</div>
+                    <div class="text"> {{ scooter.speed_limit }} км/ч</div>
+                </div>
+                <div class="description">
+                    <div class="name">Фары:</div>
+                    <div class="text"> {{ scooter.lamp }}</div>
+                </div>
+                <div class="description">
+                    <div class="name">Замок:</div>
+                    <div class="text"> {{ scooter.lock }}</div>
+                </div>
+                <div class="description">
+                    <div class="name">Двигатель:</div>
+                    <div class="text"> {{ scooter.engine }}</div>
+                </div>
+			</div>
+			<div class="command">
+				<form method="post">
+                    {% csrf_token %}
+					<p>Состояние самоката:  <select name="scooter">
+						<option value="on">Вкл.</option>
+						<option value="off">Выкл.</option>
+					</select> <input type="submit" value="Отправить команду"> </p>
+                </form>
+                <form method="post">
+                    {% csrf_token %}
+					<p>Фары:  <select name="headlight">
+							<option value="on">Вкл.</option>
+							<option value="off">Выкл.</option>
+					</select> <input type="submit" value="Отправить команду"></p>
+                </form>
+                <form method="post">
+                    {% csrf_token %}
+					<p>Замок:  <select name="lock">
+						<option value="on">Вкл.</option>
+						<option value="off">Выкл.</option>
+					</select> <input type="submit" value="Отправить команду"></p>
+                </form>
+                <form method="post">
+                    {% csrf_token %}
+					<p>Издать звук сирены:
+					<input type="checkbox" name="syren"> <input type="submit" value="Отправить команду">
+					</p>
+                </form>
+                <form method="post">
+                    {% csrf_token %}
+					<p>Открыть крышку батареи:
+					<input type="checkbox" name="open_battery_cap"> <input type="submit" value="Отправить команду">
+					</p>
+                </form>
+                <form method="post">
+                    {% csrf_token %}
+					<p>Скоростное ограничение:
+					<select name="speed_limit">
+						<option value="mode_0">10 км/ч</option>
+						<option value="mode_1">15 км/ч</option>
+						<option value="mode_2">25 км/ч</option>
+					</select> <input type="submit" value="Отправить команду">
+					</p>
+                </form>
+			</div>
+			<div class="seelogsbutton">
+				Посмотреть логи
+			</div>
+		</div>
+	</div>
+    {% if is_command_sent %}
+        <script type="text/javascript"> alert("Команда отправлена.");</script>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,105 @@
+.content .title
+{
+	font-size: 35px;
+	margin-left: 60px;
+	padding-bottom: 20px;
+}
+
+.content .window
+{
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 3px 4px 20px;
+	background-color: white;
+	padding-left: 20px;
+	padding-right: 20px;
+	height: 750px;
+}
+
+.content .window .image
+{
+	float: left;
+	width: 50%;
+	height: 200px;
+}
+
+.content .window img
+{
+	max-height: 300px;
+	max-width: 100%;
+}
+
+.content .window .textdata
+{
+	float: left;
+	width: 45%;
+	padding-top: 20px;
+	padding-right: 20px;
+	min-height: 300px;
+}
+
+.content .window .name
+{
+	width: 30%;
+	float: left;
+}
+
+.content .window .text
+{
+	width: 70%;
+	margin-left: 30%;
+	text-align: center;
+}
+
+.content .window .description
+{
+	margin-top: 10px;
+	padding-bottom: 20px;
+}
+
+.content .window .wheelsbutton
+{
+	float: left;
+	position: relative;
+	margin-top: 20px;
+	height: 60px;
+	width: 140px;
+	background-color: #EBB757;
+	text-align: center;
+	line-height: 30px;
+	color: white;
+}
+
+.content .window .modebutton
+{
+	float: left;
+	background-color: #83D9E1;
+	height: 60px;
+	width: 140px;
+	text-align: center;
+	line-height: 30px;
+	color : white;
+	margin-top: 20px;
+	margin-left: 30px;
+}
+
+.content .window .seelogsbutton
+{
+	margin-top: 40px;
+	float: right;
+	background-color: #D45959;
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+	color: white;
+	text-align: center;
+}
+
+.content .window .command
+{
+	float: left;
+	padding: 10px;
+	border: 4px double black;
+}
+

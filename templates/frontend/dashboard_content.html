@@ -1,0 +1,60 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+    {% block settings %}
+	    <title>Админпанель</title>
+	    <link rel='stylesheet' type="text/css" href=" {% static "frontend/fixed.css" %}">
+	    <link rel="stylesheet" type="text/css" href="{% static "frontend/content1.css" %}">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    {% endblock %}
+{% block content %}
+	<div class="content">
+		<div class="cart">
+			<div class="title">Самокаты</div>
+			<div class="data">
+				<div class="row">
+					<div class="name">Всего:</div>
+					<div class="number">{{ scooters.count }}</div>
+				</div>
+				<div class="row">
+					<div class="name">На линии:</div>
+					<div class="number">{{ scooters.online }}</div>
+				</div>
+				<div class="row">
+					<div class="name">В ремонте:</div>
+					<div class="number">{{ scooters.under_repair }}</div>
+				</div>
+				<div class="row">
+					<div class="name">Забронированы:</div>
+					<div class="number">{{ scooters.rented }}</div>
+				</div>
+			</div>
+		</div>
+		<div class="cart">
+			<div class="title">Критические ошибки</div>
+			<div class="data">
+				<div class="row">
+					<div class="name">Попытки угона:</div>
+					<div class="number">{{ alerts.hijacking }}</div>
+				</div>
+				<div class="row">
+					<div class="name">Потеря связи:</div>
+					<div class="number">{{ alerts.lost_connection }}</div>
+				</div>
+				<div class="row">
+					<div class="name">Малый заряд:</div>
+					<div class="number">{{ alerts.low_battery }}</div>
+				</div>
+                <div class="row">
+					<div class="name">Выезд из зоны:</div>
+					<div class="number">{{ alerts.leaving_area }}</div>
+				</div>
+                <div class="row">
+					<div class="name">Оплата не прошла:</div>
+					<div class="number">{{ alerts.payment_failed }}</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

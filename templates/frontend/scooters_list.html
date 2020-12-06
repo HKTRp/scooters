@@ -1,0 +1,95 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+{% block settings %}
+	<title>Админпанель</title>
+	<link rel='stylesheet' type="text/css" href=" {% static "frontend/fixed.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "frontend/content2.css" %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<div class="content">
+		<div class="list">
+			<div class="filter">
+            <form id="filter" action="/scooters" method="get">
+				<div class="criterion" id="group">
+					<div class="name">
+						Группа:
+					</div>
+					<select form="filter" name="group">
+						<option value="all">Все</option>
+                        {% for group in groups %}
+                            <option value="{{ group.id }}">{{ group.name }}</option>
+                        {% endfor %}
+					</select>
+				</div>
+				<div class="criterion" id="status">
+					<div class="name">
+						Статус:
+					</div>
+					<select form="filter" name="status">
+						<option value="all">Любой</option>
+                        <option value="ON">Онлайн</option>
+                        <option value="UR">В ремонте</option>
+                        <option value="RT">Арендован</option>
+                        <option value="BK">Забронирован</option>
+					</select>
+				</div>
+				<div class="criterion" id="alert">
+					<div class="name">
+						Состояние:
+					</div>
+					<select form="filter" name="alert">
+						<option value="all">Любое</option>
+                        <option value="OK">В порядке</option>
+                        <option value="HJ">Попытка угона</option>
+                        <option value="LC">Потеря соединения</option>
+                        <option value="LA">Выход из зоны</option>
+                        <option value="LB">Низкий заряд</option>
+                        <option value="FP">Не прошла оплата</option>
+					</select>
+				</div>
+				<div class="findbutton">
+					<input type="submit" value="Найти">
+				</div>
+            </form>
+			</div>
+			<div class="titles">
+				<div class="title" id="name">Имя</div>
+				<div class="title" id="id">ID</div>
+				<div class="title" id="status">Статус</div>
+			</div>
+			<div class="table">
+                {% for scooter in scooters %}
+                <a href="scooters/{{ scooter.id }}">
+				<div class="row {% cycle 'a1' 'a2' %}" id="r{{ scooter.id }}">
+                    <style type="text/css">
+                        #r{{ scooter.id }}:hover img
+                            {
+                                display: block;
+                                padding-top: 15px;
+                                float: right;
+                                padding-right: 25px;
+                            }
+                    </style>
+					<div class="value" id="name">
+						{{ scooter.scooter_name }}
+					</div>
+					<div class="value" id="id">
+						{{ scooter.id }}
+					</div>
+					<div class="value" id="status">
+						{{ scooter.status }}
+					</div>
+                    <a href="scooters/redact/{{ scooter.id }}/"><img src="https://img.icons8.com/android/24/000000/pencil.png"/></a>
+				</div>
+                </a>
+                {% endfor %}
+				</div>
+            <div class="create_new_button">
+                <a href="scooters/new">Добавить новый</a>
+            </div>
+			</div>
+		</div>
+    </div>
+{% endblock %}
+</body>

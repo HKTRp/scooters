@@ -1,0 +1,76 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+{% block settings %}
+	<title>Админпанель</title>
+	<link rel='stylesheet' type="text/css" href=" {% static "frontend/fixed.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "frontend/content2.css" %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<div class="content">
+		<div class="list">
+			<div class="filter">
+            <form id="filter" action="/clients" method="get">
+				<div class="criterion" id="group">
+					<div class="name">
+						Группа:
+					</div>
+					<select form="filter" name="group">
+						<option value="all">Все</option>
+                        {% for group in groups %}
+                            <option value="{{ group.id }}">{{ group.name }}</option>
+                        {% endfor %}
+					</select>
+				</div>
+				<div class="criterion" id="status">
+					<div class="name">
+						Статус:
+					</div>
+					<select form="filter" name="status">
+						<option value="all">Любой</option>
+                        <option value="AC">Активный</option>
+                        <option value="WV">Не верифицирован</option>
+                        <option value="BD">Заблокирован</option>
+					</select>
+				</div>
+				<div class="findbutton">
+					<input type="submit" value="Найти">
+				</div>
+            </form>
+			</div>
+			<div class="titles">
+				<div class="title" id="name">Имя</div>
+				<div class="title" id="id">ID</div>
+				<div class="title" id="status">Статус</div>
+			</div>
+			<div class="table">
+                {% for client in clients %}
+                <a href="clients/{{ client.id }}">
+				<div class="row {% cycle 'a1' 'a2' %}" id="r{{ client.id }}">
+                    <style type="text/css">
+                        #r{{ client.id }}:hover img
+                            {
+                                display: block;
+                                padding-top: 15px;
+                                float: right;
+                                padding-right: 25px;
+                            }
+                    </style>
+					<div class="value" id="name">
+						{{ client.client_name }}
+					</div>
+					<div class="value" id="id">
+						{{ client.id }}
+					</div>
+					<div class="value" id="status">
+						{{ client.status }}
+					</div>
+				</div>
+                </a>
+                {% endfor %}
+				</div>
+			</div>
+		</div>
+    </div>
+{% endblock %}
+</body>

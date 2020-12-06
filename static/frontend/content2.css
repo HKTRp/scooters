@@ -1,0 +1,112 @@
+.content .list
+{
+	position: relative;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 30px;
+	top: 0px;
+	box-shadow: 3px 4px 20px;
+	background-color: white;
+}
+
+.content .list .filter
+{
+	height: 50px;
+	padding-bottom: 30px;
+}
+
+.content .list .filter .criterion
+{
+	height: 100%;
+	float: left;
+	padding-right: 50px;
+}
+
+.content .list .filter .criterion .name
+{
+	position: relative;
+	float: left;
+	height: 100%;
+	line-height: 50px;
+	padding-left: 0px;
+	padding-right: 20px;
+
+}
+
+.content .list .criterion select
+{
+	position: relative;
+	top: 15px;
+	line-height: 50px;
+	float: left
+}
+
+.content .list .findbutton
+{
+	float: left;
+	text-align: center;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	margin-top: 7px;
+	margin-left: 30px;
+}
+
+.content .list .titles
+{
+	height: 40px;
+}
+.content .list .titles .title
+{
+	float: left;
+	height: 100%;
+	line-height: 20px;
+}
+
+.content .list .table .row
+{
+	height: 60px;
+	line-height: 60px;
+	border-radius: 10px;
+}
+
+.content .list .table a:active
+{
+	display: block;
+	text-decoration: none;
+	color: #5E5E5E;
+}
+
+.content .list .table .a1
+{
+	background-color: #E3E3E3;
+}
+
+.content .list .table .value
+{
+	width: 100px;
+	float: left;
+}
+
+.content .list #name
+{
+	width: 50%;
+	padding-left: 10px
+}
+
+.content .list #id
+{
+	width: 25%;
+}
+
+.create_new_button
+{
+	margin-top: 15px;
+}
+
+.table img
+{
+	display: none;
+}
+

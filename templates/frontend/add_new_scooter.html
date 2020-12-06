@@ -1,0 +1,50 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+{% block settings %}
+	<title>Админпанель</title>
+	<link rel='stylesheet' type="text/css" href=" {% static "frontend/fixed.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "frontend/content4.css" %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<div class="content">
+		<div class="window">
+			<form method="post">
+                {% csrf_token %}
+				<p>
+					Название : <input type="text" name="title" value="{{ current.scooter_name }}">
+				</p>
+				<p>
+					Описание : <input type="text" name="description" value="{{ current.description }}">
+				</p>
+				<p>
+					Изображение : <input type="file" name="photo" value="{{ current.photo }}">
+				</p>
+				<p>
+					ID трекера : <input type="text" name="tracker_id" value="{{ current.tracker_id }}">
+				</p>
+                <p>
+                    Группа : <select name="scooter_group">
+                    {% for group in groups %}
+                        <option value="{{ group.id }}">{{ group.name }}</option>
+                    {% endfor %}
+                </select>
+                </p>
+                <p>
+                    {% if current %}
+                        <input type="submit" value="Изменить">
+                    {% else %}
+                        <input type="submit" value="Создать">
+                    {% endif %}
+                </p>
+			</form>
+		</div>
+	</div>
+    {% if is_model_created %}
+    {% if current %}
+        <script type="text/javascript"> alert("Данные самоката успешно изменены");</script>
+    {% else %}
+        <script type="text/javascript"> alert("Новый самокат успешно добавлен");</script>
+    {% endif %}
+{% endif %}
+{% endblock %}

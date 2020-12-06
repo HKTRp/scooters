@@ -1,0 +1,157 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Админпанель</title>
+	<link rel='stylesheet' type="text/css" href=" {% static "frontend/fixed.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "frontend/content1.css" %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="sidebar">
+    <a href="dashboard">
+	<div class="button">
+		<div class="name">Дашборд</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-приборная-панель-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+	<a href="alerts"><div class="button">
+		<div class="name">Тревоги</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-предупреждение-тормоза-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="map">
+	<div class="button">
+		<div class="name">Карта</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-карта-сокровищ-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="scooters">
+	<div class="button">
+		<div class="name">Самокаты</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-самокат-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="clients">
+	<div class="button">
+		<div class="name">Клиенты</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-мужчина-пользователь-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="orders">
+	<div class="button">
+		<div class="name">Заказы</div>
+		<div class="icon">
+			<img src={% static "frontend/icons/icons8-выставленный-счет-50.png" %} alt="">
+        </div>
+	</div>
+    </a>
+    <a href="review">
+	<div class="button">
+		<div class="name">Осмотр</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-детектив-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="billing">
+	<div class="button">
+		<div class="name">Биллинг</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-счет-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="rates">
+	<div class="button">
+		<div class="name">Тарифы</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-заказ-на-покупку-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+    <a href="logs">
+	<div class="button">
+		<div class="name">Логи</div>
+		<div class="icon">
+			<img src="{% static "frontend/icons/icons8-история-заказов-50.png" %}" alt="">
+		</div>
+	</div>
+    </a>
+</div>
+<div class="other">
+	<div class="header">
+		<div class="useravatar">
+			<img src="{% static "frontend/icons/download.png" %}" alt="">
+		</div>
+		<div class="username">
+			Administrator
+		</div>
+		<div class="logoutbutton">
+			ВЫЙТИ
+		</div>
+	</div>
+	<div class="content">
+		<div class="cart">
+			<div class="title">Самокаты</div>
+			<div class="data">
+				<div class="row">
+					<div class="name">Всего:</div>
+					<div class="number">20</div>
+				</div>
+				<div class="row">
+					<div class="name">На линии</div>
+					<div class="number">4</div>
+				</div>
+				<div class="row">
+					<div class="name">Онлайн:</div>
+					<div class="number">12</div>
+				</div>
+				<div class="row">
+					<div class="name">В ремонте:</div>
+					<div class="number">2</div>
+				</div>
+				<div class="row">
+					<div class="name">Забронированы</div>
+					<div class="number">5</div>
+				</div>
+			</div>
+		</div>
+		<div class="cart">
+			<div class="title">Финансы</div>
+			<div class="data">
+			</div>
+		</div>
+		<div class="cart">
+			<div class="title">Критические ошибки</div>
+			<div class="data">
+				<div class="row">
+					<div class="name">Попытки угона:</div>
+					<div class="number">20</div>
+				</div>
+				<div class="row">
+					<div class="name">Потеря связи:</div>
+					<div class="number">4</div>
+				</div>
+				<div class="row">
+					<div class="name">Малый заряд:</div>
+					<div class="number">12</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

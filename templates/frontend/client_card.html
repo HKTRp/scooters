@@ -1,0 +1,41 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+
+{% block settings %}
+	<title>Админпанель</title>
+	<link rel='stylesheet' type="text/css" href=" {% static "frontend/fixed.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "frontend/content3.css" %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<div class="content">
+		<div class="title">
+			{{ client.client_name }}
+		</div>
+		<div class="window">
+
+			<div class="image">
+				<img src="../../static/{{ client.client_photo }}" alt="">
+			</div>
+			<div class="textdata">
+				<div class="description">
+					<div class="name">
+						Статус:
+					</div>
+					<div class="text">
+						{{ client.status }}
+					</div>
+				</div>
+                <div class="description">
+                    <div class="name">Баланс: </div>
+                    <div class="text"> {{ client.balance }} рублей</div>
+                </div>
+                <div class="description">
+                    <div class="name">Телефон: </div>
+                    <div class="text"> {{ client.phone }}</div>
+                </div>
+                </div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

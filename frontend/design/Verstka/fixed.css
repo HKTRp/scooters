@@ -1,0 +1,127 @@
+body
+{
+	margin: 0px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.sidebar
+{
+	background-color: #FFFFFF;
+	width: 16%;
+	float: left;
+	height: 100%;
+	position: fixed;
+}
+
+.other
+{
+	width: 84%;
+	float: right;
+}
+
+.header
+{
+	background-color: #D45959;
+	position: fixed;
+	width: 84%;
+	height: 50px;
+	z-index: 2;
+}
+
+.content
+{
+	padding-top: 30px;
+	margin-top: 50px;
+	background-color: #F2F2F2;
+	min-height: 100vh;
+	padding-bottom: 30px;
+	height: auto;
+	color: #5E5E5E;
+}
+
+.sidebar .button:hover
+{
+	background-color: #F2F2F2;
+}
+
+.sidebar .button
+{
+	height: 10%;
+	background-color: white;
+}
+
+.sidebar .button .name
+{	
+	position: relative;
+	left: 12px;
+	top: 20px;
+	height: 30px;
+	width: 40px;
+	font-size: 20px;
+	color: #313131;
+	float: left;
+}
+
+.sidebar .button .icon
+{
+	position: relative;
+	float: right;
+	width: 30px;
+	right: 10px;
+	top: 15px;
+	right: 13px;
+}
+
+.sidebar .button .icon img
+{
+	width: 30px;
+}
+
+.header .useravatar
+{
+	position: relative;
+	width: 50px;
+	height: 50px;
+	float: left;
+	left: 7px;
+}
+
+.header .useravatar img
+{
+	width: 50px;
+	border-radius: 50%;
+}
+
+.header .username
+{
+	position: relative;
+	width: 40px;
+	height: 20px;
+	float: left;
+	color: #F7F7F7;
+	top: 13px;
+	left: 14px;
+	font-size: 20px;
+}
+
+.header .logoutbutton
+{
+	float: right;
+	position: relative;
+	right: 40px;
+	width: 100px;
+	height: 30px;
+	top: 10px;
+	line-height: 30px;
+	background-color: white;
+	font-size: 13px;
+	font-weight: bold;
+	text-align: center;
+	box-shadow: 0px 2px 4px;
+}
+
+.header .logoutbutton:active
+{
+	box-shadow: none;
+}
+
