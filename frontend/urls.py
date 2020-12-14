@@ -9,5 +9,8 @@ urlpatterns = [
     path('scooters/<str:scooter_id>/', views.scooter_card_view),
     path('clients', views.client_list_view),
     path('clients/<str:client_id>/', views.client_card_view),
-    path('alerts', views.alerts_list_view)
+    path('alerts', views.alerts_list_view),
+    path('alerts/settings/', views.alert_settings_view),
+    path('alerts/<str:alert_id>/', views.alert_card_view),
+    path('', views.dashboard)
 ]

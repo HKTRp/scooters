@@ -35,6 +35,13 @@
                     <div class="text"> {{ client.phone }}</div>
                 </div>
                 </div>
+            <div class="ban-button">
+                {% if client.status == "AC" %}
+                    <a href="?ban=True">Заблокировать</a>
+                {% elif client.status == "BD" %}
+                    <a href="?ban=False">Разблокировать</a>
+                {% endif %}
+            </div>
 			</div>
 		</div>
 	</div>

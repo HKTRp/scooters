@@ -1,11 +1,12 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import HttpResponse
-from .models import Client, Scooter, Order, Transaction, Rate, ScootersGroup, ClientsGroup, RateGroup, User
+from .models import *
 from random import randint
 import json
 from . import serializers
 import requests
+from datetime import datetime
 
 # Meta API classes
 
@@ -164,10 +165,8 @@ class GetClientView(GetView):
         api_objects = self.model.objects.all()
         if 'id' in request.query_params:
             api_objects = api_objects.filter(id=request.query_params['id'])
-        if 'group' in request.query_params:
-            api_objects = api_objects.filter(group=request.query_params['group'])
-        if 'status' in request.query_params:
-            api_objects = api_objects.filter(status=request.query_params['status'])
+        else:
+            api_objects = []
         return api_objects
 
 
@@ -211,17 +210,38 @@ class GetOrderView(GetView):
 
     def get_objects_to_response(self, request):
         api_objects = self.model.objects.all()
-        if 'id' in request.query_params:
+        if 'client' in request.query_params:
+            api_objects = api_objects.filter(client=request.query_params['client'])
+        elif 'id' in request.query_params:
             api_objects = api_objects.filter(id=request.query_params['id'])
+        else:
+            api_objects = []
         if 'is_paid' in request.query_params:
             api_objects = api_objects.filter(is_paid=request.query_params['is_paid'])
         return api_objects
 
 
-class AddOrderView(AddView):
+class AddOrderView(APIView):
 
-    def __init__(self):
-        self.serializer = serializers.OrderSerializer
+    def post(self, request):
+        date = datetime.strptime(request.data['date'], "%d-%m-%Y")
+        start_time = datetime.strptime(request.data['start_time'], "%H:%M:%S")
+        finish_time = datetime.strptime(request.data['finish_time'], "%H:%M:%S")
+        delta = finish_time - start_time
+        scooter = request.data['scooter']
+        client = request.data['client']
+        rate = request.data['rate']
+        rate_object = Rate.objects.filter(id=rate)
+        if not rate:
+            return Response(status=400)
+        rate_object = rate_object.get(id=rate)
+        long = delta.seconds/60
+        cost = float(rate_object.rate)*long
+        new_order = Order.objects.create(start_time=start_time, finish_time=finish_time,
+                                         scooter=Scooter.objects.get(id=scooter), client=Client.objects.get(id=client),
+                                         rate=Rate.objects.get(id=rate), cost=cost, date=date)
+        new_order.save()
+        return Response(json.dumps({'id': new_order.id}), status=200)
 
 
 class RemoveOrderView(RemoveView):
@@ -395,13 +415,15 @@ class ClientLogInView(APIView):
         if 'phone' in data and 'name' in data:
             phone = data['phone']
             code = 1234
-            resp = json.dumps({"code": code})
             api_get_data = '?login=HooinKema&psw=Q314ztb812&phones=' + phone + '&mes=' + str(code) + '&cost=0'
             string = 'https://smsc.ru/sys/send.php' + api_get_data
             requests.get(string)
             users = Client.objects.filter(phone=data['phone'])
+            resp = {"code": code}
             if users:
-                return HttpResponse(resp, status=200)
+                user = Client.objects.get(phone=data['phone'])
+                resp['id'] = user.id
+                return HttpResponse(json.dumps(resp), status=200)
             else:
                 api_object = serializers.ClientSerializer(data=request.data)
                 if api_object.is_valid():
@@ -411,3 +433,24 @@ class ClientLogInView(APIView):
                     return Response(status=100)
         else:
             return Response(status=400)
+
+
+class GetPaymentLinkView(APIView):
+
+    def get(self, request):
+        return Response({'': ""}, status=200)
+
+
+class GetGeoZoneView(APIView):
+
+    def get(self, request):
+        data = []
+        zones = GeoZone.objects.all()
+        for zone in zones:
+            zone_points = []
+            points = GeoPoint.objects.filter(zone=zone.id)
+            for point in points:
+                zone_points.append([point.lat, point.lon])
+            data.append({'type': zone.zone_type, 'points': zone_points})
+        return HttpResponse(json.dumps(data), status=200)
+

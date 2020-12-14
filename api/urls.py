@@ -42,6 +42,10 @@ urlpatterns = [
 
     path('getRateGroup/', views.GetRateGroupView.as_view(), name='get_rate_group'),
     path('addRateGroup/', views.AddRateGroupView.as_view(), name='add_rate_group'),
-    path('removeRateGroup/', views.RemoveRateGroupView.as_view(), name="remove_rate_group")
+    path('removeRateGroup/', views.RemoveRateGroupView.as_view(), name="remove_rate_group"),
+
+    path('getGeoZone/', views.GetGeoZoneView.as_view(), name='get_geo_zone'),
+
+    path('getPaymentLink/', views.GetPaymentLinkView.as_view(), name='get_payment_link')
 
 ]

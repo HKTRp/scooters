@@ -56,7 +56,7 @@ class Scooter(models.Model):
     lamp = models.BooleanField(default=False)
     engine = models.BooleanField(default=False)
     lock = models.BooleanField(default=True)
-    #last_ping = models.DateTimeField(default=timezone.now)
+    last_ping = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.scooter_name + " " + str(self.id)
@@ -101,6 +101,7 @@ class Alert(models.Model):
     alert_owner = models.ForeignKey(Scooter, on_delete=models.CASCADE)
     alert_order = models.ForeignKey(Client, blank=True, on_delete=models.CASCADE)
     gotten = models.DateTimeField(default=timezone.now)
+    checked = models.BooleanField(default=False)
 
 
 class Order(models.Model):
@@ -124,5 +125,32 @@ class Transaction(models.Model):
     order = models.OneToOneField(Order, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
+
+
+class GeoZone(models.Model):
+    zone_type = models.CharField(max_length=10, default="Neutral")
+
+    def __str__(self):
+        return str(self.id) + self.zone_type
+
+
+class GeoPoint(models.Model):
+    lat = models.FloatField(default=0.0)
+    lon = models.FloatField(default=0.0)
+    zone = models.ForeignKey(GeoZone, on_delete=models.CASCADE)
+    number = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.lat) + " " + str(self.lon)
+
+
+class AlarmSettingsSingleton(models.Model):
+    low_battery = models.FloatField(default=10.0)
+    hijacking_speed = models.FloatField(default=10.0)
+    leaving_area_time = models.FloatField(default=5.0)
+    lost_track = models.FloatField(default=5.0)
+
+    def __str__(self):
+        return str(self.id)
 

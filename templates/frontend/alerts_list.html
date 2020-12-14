@@ -27,16 +27,19 @@
 				<div class="findbutton">
 					<input type="submit" value="Найти">
 				</div>
+                <div class="settings">
+                    <a href="alerts/settings">Настройки</a>
+                </div>
             </form>
 			</div>
 			<div class="titles">
 				<div class="title" id="name">Название самоката</div>
-				<div class="title" id="id">ID</div>
+				<div class="title" id="id">Время и дата получения</div>
 				<div class="title" id="status">Ошибка</div>
 			</div>
 			<div class="table">
                 {% for alert in alerts %}
-                <a href="scooters/{{ alert.id }}">
+                <a href="alerts/{{ alert.id }}">
 				<div class="row {% cycle 'a1' 'a2' %}" id="r{{ alert.id }}">
                     <style type="text/css">
                         #r{{ alert.id }}:hover img
@@ -48,14 +51,15 @@
                             }
                     </style>
 					<div class="value" id="name">
-						{{ alert.alert_owner.name }}
+						{{ alert.alert_owner.scooter_name }}
 					</div>
 					<div class="value" id="id">
-						{{ alert.id }}
+						{{ alert.gotten }}
 					</div>
 					<div class="value" id="status">
-						{{ alert.type }}
+						{{ alert.alert_type }}
 					</div>
+                    {% if not alert.checked %} ! {% endif %}
 				</div>
                 </a>
                 {% endfor %}

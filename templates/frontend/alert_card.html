@@ -1,0 +1,48 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+
+{% block settings %}
+	<title>Админпанель</title>
+	<link rel='stylesheet' type="text/css" href=" {% static "frontend/fixed.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "frontend/content3.css" %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<div class="content">
+		<div class="title">
+
+		</div>
+		<div class="window">
+			<div class="textdata">
+				<div class="description">
+					<div class="name">
+						Тип:
+					</div>
+					<div class="text">
+						{{ alert.alert_type }}
+					</div>
+				</div>
+				<div class="description">
+					<div class="name">
+						Самокат:
+					</div>
+					<div class="text">
+                        <a href="../../scooters/{{ alert.alert_owner.id }}">{{ alert.alert_owner.scooter_name }}</a>
+					</div>
+				</div>
+				<div class="description">
+					<div class="name">
+						Время ошибки:
+					</div>
+					<div class="text">
+						{{ alert.gotten }}
+					</div>
+				</div>
+                {% if alert.alert_type == 'PF' %}
+                <div class="description">
+                    <div class="name">Заказ:</div>
+                    <div class="text"> {{ alert.alert_order }}</div>
+                </div>
+                {% endif %}
+			</div>
+{% endblock %}

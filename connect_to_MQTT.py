@@ -2,6 +2,8 @@ import paho.mqtt.client as mqtt
 import json
 from contextlib import closing
 import psycopg2
+from datetime import datetime
+import pytz
 
 
 base_url = 'scooteradminpanel.ru'
@@ -25,6 +27,7 @@ def on_message(client, userdata, msg):
     engine = postgre_bool[int(data['enb'])]
     mode = modes[int(data['gear'])]
     battery = data['ubat']
+    status = "OK"
     with closing(psycopg2.connect(dbname='db1', user='admin', password='Q314ztb812', host="localhost")) as conn:
         with conn.cursor() as cursor:
 
@@ -39,8 +42,8 @@ def on_message(client, userdata, msg):
                 variables = (lat, lon, lamp, lock, engine, battery, tr_id)
                 cursor.execute(command, variables)
                 conn.commit()
-                command = "UPDATE api_scooter SET speed_limit=%s WHERE tracker_id = %s;"
-                variables = (mode, tr_id)
+                command = "UPDATE api_scooter SET speed_limit=%s, alert_status=%s, last_ping=%s WHERE tracker_id = %s;"
+                variables = (mode, status, pytz.utc.localize(datetime.utcnow()), tr_id)
                 cursor.execute(command, variables)
                 conn.commit()
             else:

@@ -12,7 +12,7 @@ def dashboard(request):
     rented = len(scooters_data.filter(status="RT"))
     scooters = {'count': count, 'online': online, 'under_repair': under_repair, 'rented': rented}
 
-    alerts_data = Alert.objects.all()
+    alerts_data = Alert.objects.filter(checked=False)
     hijacking = len(alerts_data.filter(alert_type="HJ"))
     low_battery = len(alerts_data.filter(alert_type="LB"))
     leaving_area = len(alerts_data.filter(alert_type="LA"))
@@ -130,6 +130,13 @@ def client_list_view(request):
 
 def client_card_view(request, client_id):
     client = Client.objects.get(id=client_id)
+    if 'ban' in request.GET:
+        if request.GET.get('ban') == "True":
+            client.status = 'BD'
+            client.save()
+        elif request.GET.get('ban') == "False":
+            client.status = 'AC'
+            client.save()
     return render(request, 'frontend/client_card.html', context={'client': client})
 
 
@@ -137,5 +144,31 @@ def alerts_list_view(request):
     alerts = Alert.objects.all()
     if 'alert' in request.GET:
         if request.GET.get('alert') != 'all':
-            alerts = alerts.filter(type=request.GET.get('alert'))
-    return render(request, 'frontend/alerts.html', context={'alerts': alerts})
+            alerts = alerts.filter(alert_type=request.GET.get('alert'))
+    alerts = alerts.order_by('-gotten')
+    alerts = alerts.order_by('checked')
+    return render(request, 'frontend/alerts_list.html', context={'alerts': alerts})
+
+
+def alert_card_view(request, alert_id):
+    alert = Alert.objects.get(id=alert_id)
+    alert.checked = True
+    alert.save()
+    return render(request, 'frontend/alert_card.html', context={'alert': alert})
+
+
+def alert_settings_view(request):
+    is_settings_changed = False
+    settings = AlarmSettingsSingleton.objects.get(id=2)
+
+    if request.method == 'POST':
+        data = request.POST
+        settings.low_battery = float(data.get('battery'))
+        settings.leaving_area_time = float(data.get('area_lost_time'))
+        settings.hijacking_speed = float(data.get('speed'))
+        settings.lost_track = float(data.get('track_lost_time'))
+        is_settings_changed = True
+        settings.save()
+    cont = {'settings': settings, 'is_settings_changed': is_settings_changed}
+    return render(request, 'frontend/alert_settings.html', context=cont)
+

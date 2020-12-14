@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Client, Scooter, Order, Transaction, Rate, ScootersGroup, ClientsGroup, RateGroup
+from .models import *
 
 
 class ScooterSerializer(serializers.ModelSerializer):
@@ -55,4 +55,11 @@ class RateGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RateGroup
+        fields = '__all__'
+
+
+class GeoZoneSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GeoPoint
         fields = '__all__'

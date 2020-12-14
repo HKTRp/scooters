@@ -1,0 +1,35 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+{% block settings %}
+	<title>Админпанель</title>
+	<link rel='stylesheet' type="text/css" href=" {% static "frontend/fixed.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "frontend/content4.css" %}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<div class="content">
+		<div class="window">
+			<form method="post">
+                {% csrf_token %}
+				<p>
+					Заряд срабатывания оповещения (в %) : <input type="number" name="battery" value="{{ settings.low_battery }}">
+				</p>
+				<p>
+					Скорость определения угона (м/c): <input type="number" name="speed" value="{{ settings.hijacking_speed }}">
+				</p>
+				<p>
+					Допустимое время вне зоны (мин) : <input type="number" name="area_lost_time" value="{{ settings.leaving_area_time }}">
+				</p>
+				<p>
+					Допустимое время потери трека (мин) : <input type="number" name="track_lost_time" value="{{ settings.lost_track }}">
+				</p>
+                <p>
+                    <input type="submit" value="Изменить">
+                </p>
+			</form>
+		</div>
+	</div>
+    {% if is_settings_changed %}
+        <script type="text/javascript"> alert("Настройки успешно изменены");</script>
+    {% endif %}
+{% endblock %}

@@ -11,13 +11,13 @@ while True:
             cursor.execute("SELECT id, last_ping, alert_status FROM api_scooter;")
             for row in cursor:
                 if row[2] != 'LC':
-                    if time.time() - row[1].timestamp() > 300:
+                    if datetime.now().timestamp() - row[1].timestamp() > 36000:
                         to_exec.append(row[0])
             conn.commit()
             for i in to_exec:
                 cursor.execute("UPDATE api_scooter SET alert_status=%s WHERE id = %s", ('LC', i))
                 conn.commit()
-                cursor.execute("INSERT INTO api_alert (alert_type, alert_owner_id, gotten ) "
-                               "VALUES (%s, %s, %s);", ('LC', i, datetime.today()))
+                cursor.execute("INSERT INTO api_alert (alert_type, alert_owner_id, alert_order_id, gotten ) "
+                               "VALUES (%s, %s, %s, %s);", ('LC', i, 1, datetime.today()))
                 conn.commit()
     time.sleep(180)
